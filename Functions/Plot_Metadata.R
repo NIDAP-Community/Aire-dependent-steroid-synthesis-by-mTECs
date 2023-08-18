@@ -1,31 +1,3 @@
-#' @title Plotting (i.e. coloring with) different columns of your Metadata Table
-#' @description For each column selected, this template will produce a plot
-#' (UMAP/TSNE/PCA; your choice) using the data in that column to color the cells
-#' @details This is a downstream template for the Single-cell RNA-seq workflow
-#' (requires dataset where Filter/QC/SingleR annotations have been run first)
-#'
-#' @param object A combined Seurat Object with metadata to plot
-#' @param samples.to.include Which samples you would like to include
-#' @param metadata.to.plot The metadata columns from your Metadata table
-#' you would like to plot
-#' @param columns.to.summarize The columns you would like to summarize
-#' @param summarization.cut.off Select the number of categories you want
-#' to display, while marking all other cells as "other." Default is 5
-#' @param reduction.type What kind of visualization you would like to use
-#' to plot your cells and metadata (tsne, umap, pca). Default is tsne
-#' @param use.cite.seq TRUE if you would like to plot Antibody clusters
-#' from CITEseq instead of scRNA. Default is FALSE
-#' @param show.labels Whether to add labels or not to your reduction map.
-#' Default is FALSE
-#' @param legend.text.size Customize the size of the legend text in your charts.
-#' Default is 1
-#' @param legend.position Select how you want to align your legend.
-#' Default is "right"
-#' @param dot.size The size of the dots displayed on the plot. Default os 0.01
-#'
-#' @export
-#'
-#' @return a data.frame extracted from the Seurat object and plot
 
 plotMetadata <- function(
     object,
@@ -39,23 +11,8 @@ plotMetadata <- function(
     legend.position = "right",
     dot.size = 0.01
 ) {
-  
-  library(Seurat)
-  library(ggplot2)
-  library(RColorBrewer)
-  library(scales)
-  library(dplyr)
-  library(ggrepel)
-  library(gdata)
-  library(reshape2)
-  library(tools)
-  library(grid)
-  library(gridBase)
-  library(gridExtra)
 
-  ###################
-  ##   Functions   ##
-  ###################
+  # Helper Functions
   
   .drawMetadata <- function(m) {
     #check if there are NaNs in metadata, if there are, catch
@@ -269,8 +226,6 @@ plotMetadata <- function(
       midpt.1 = clus.quant[2]
       midpt.2 = clus.quant[1]
       midpt.3 = clus.quant[3]
-      #hist(clusid[!is.na(clusid)], breaks=100, main=m)
-      #abline(v=midpt,col="red",lwd=2)
       
       if (!(use.cite.seq)) {
         #plot RNA clusters
@@ -327,8 +282,6 @@ plotMetadata <- function(
         theme_bw() +
         theme(legend.title = element_blank()) +
         geom_point(aes(colour = clusid), size = 1) +
-        #scale_color_gradient2(low = "blue4", mid = "white", high = "red",
-        #          midpoint = midpt[[p]], na.value="grey",limits = c(0, 1)) +
         scale_color_gradientn(
           colours = c("blue4", "lightgrey", "red"),
           values = scales::rescale(c(0, midpt.2, midpt.1, midpt.3, 1),
@@ -346,11 +299,7 @@ plotMetadata <- function(
     return(g)
   }
   
-  
-  ###################
-  ##   MAIN CODE   ##
-  ###################    
-  
+  # Main Code
   meta.df <- object@meta.data
   summarize.cut.off <- min(summarization.cut.off, 20)
   

@@ -1,5 +1,3 @@
-library(Seurat)
-library(pheatmap)
 
 Idents(SO_merge) <- SO_merge@meta.data$SCT_snn_res.0.7
 

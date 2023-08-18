@@ -10,6 +10,21 @@ MAST <- function(SO.sub,
                  latent_vars = c()
                  ) {
   
+  library(Seurat)
+  library(ggplot2)
+  library(RColorBrewer)
+  library(scales)
+  library(tidyverse)
+  library(ggrepel)
+  library(gdata)
+  library(reshape2)
+  library(tools)
+  library(grid)
+  library(gridBase)
+  library(gridExtra)
+  library(parallel)
+  library(MAST)
+  
   #define contrasts
   newcont <- list()
   for (i in 1:length(contrasts)){

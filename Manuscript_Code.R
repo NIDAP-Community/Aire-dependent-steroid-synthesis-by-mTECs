@@ -1,5 +1,18 @@
-# set directory
-setwd("rstudio-files/ccbr-data/users/Jing/Taves_mTEC/ccbr1234_manuscript")
+# Load Libraries
+library(Seurat)
+library(ggplot2)
+library(RColorBrewer)
+library(scales)
+library(ggrepel)
+library(gdata)
+library(reshape2)
+library(tools)
+library(grid)
+library(gridBase)
+library(gridExtra)
+library(pheatmap)
+library(tidyverse)
+library(stringr)
 
 # process raw files and create seurat object 
 source("Load_Process_Data.R")

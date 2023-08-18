@@ -1,40 +1,3 @@
-#' @title Visualize gene expression for provided Genes
-#' across your cells as a heatmap
-#' @description You should see one plot (TSNE or UMAP, your choice)
-#' per gene name provided. The intensity of the red color will be relative
-#' to the expression of the gene in that cell
-#' @details This function must be run downstream of the Sample Names function,
-#' as well as be provided a combined Seurat Object
-#' such as the one produced by the SingleR Cell Annotation function
-#'
-#' @param object Object of class Seurat
-#' @param samples.to.include Samples to be included in the analysis
-#' @param gene Genes which you would like to visualize
-#' @param reduction.type  Select the kind of clustering visualization
-#' you would like to use to visualize the cell type results
-#' ("umap", "tsne", "pca"). Default is "umap"
-#' @param number.of.rows The number of rows you want to arrange your plots into
-#' @param return.seurat.object Set to FALSE if you want only a geneset
-#' (and not a Seurat object) to be returned
-#' @param color The color you want to use in your heatmap (default "red")
-#' @param point.size The size of the points representing
-#' each cell in your visualization. Default is 1
-#' @param point.shape The code for your point shape (R "pch" argument).
-#' Default is 16
-#' @param point.transparency Set the transparency. Default is 0.5
-#' @param use.cite.seq.data TRUE if you would like to plot Antibody clusters
-#' from CITEseq instead of scRNA.
-#' @param assay Select Assay to Plot (default is SCT)
-#'
-#' @import Seurat
-#' @import gridExtra
-#' @import ggplot2
-#' @import tidyverse
-#'
-#'
-#' @export
-#'
-#' @return a Seurat object with additional metadata or gene table and plot
 
 colorByGene <- function(object,
                         gene,
@@ -47,19 +10,7 @@ colorByGene <- function(object,
                         point.transparency = 0.5,
                         use.cite.seq.data = FALSE,
                         assay = "SCT") {
-  ##--------------- ##
-  ## Error Messages ##
-  ## -------------- ##
   
-  
-  ## --------- ##
-  ## Functions ##
-  ## --------- ##
-  
-  
-  ## --------------- ##
-  ## Main Code Block ##
-  ## --------------- ##
   object.sub <- object
   
   #Check input for missing genes
@@ -184,9 +135,7 @@ colorByGene <- function(object,
     
     grob <- lapply(seq_along(gene), function(x)
       .plotGene(gene[x]))
-    ##    gridExtra::grid.arrange(grobs=grob,nrow=n,newpage=F)
-    ###    plots <- gridExtra::grid.arrange(grobs=grob,nrow=n,newpage=F)
-    
+  
     if (return.seurat.object) {
       result.list <- list("object" = object, "plot" = grob)
       return(result.list)

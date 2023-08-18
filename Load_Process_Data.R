@@ -1,9 +1,4 @@
-library(Seurat)
-library(reshape2)
-library(tidyverse)
-library(stringr)
 
-### adult_perinate_mtx
 GSM5831744_adult_perinate_mtx <- ReadMtx(
   mtx = "Data/Raw_Input/GSM5831744_adult_perinate_gex_matrix.mtx.gz", 
   features = "Data/Raw_Input/GSM5831744_adult_perinate_gex_features.tsv.gz",
